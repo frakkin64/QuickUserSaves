@@ -1,8 +1,8 @@
-# `CommonLibF4 NG - Template`
+# QuickUserSaves
 
 ## About
 
-This is a template for my CommonLibF4 NG project, designed to be a simple and straightforward way to start developing script extender mods for Fallout 4.
+This is a F4SE plugin that converts the quick save hot key to write a user save (same as Pause Menu -> Save) and the quick load hot key to load most recent save (instead of Quicksave slot).  This code is based on [BakaQuickFullSaves](https://github.com/shad0wshayd3-FO4/BakaQuickFullSaves) but has been adapted to NG/OG.
 
 ## Build Dependencies
 
