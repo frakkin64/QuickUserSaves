@@ -1,0 +1,49 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/build.yml"
+      - "lib/**"
+      - "src/**"
+      - "xmake.lua"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  xmake:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+          - release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup XMake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: "latest"
+
+      - name: Configure
+        run: xmake config -y --mode=${{ matrix.mode }}
+
+      - name: Build
+        run: xmake build -y -vD
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: QuickUserSaves-windows-x64-${{ matrix.mode }}
+          path: |
+            build/windows/x64/${{ matrix.mode }}/QuickUserSaves.dll
+            build/windows/x64/${{ matrix.mode }}/QuickUserSaves.pdb
+          if-no-files-found: error
