@@ -45,6 +45,10 @@ namespace Hooks
 		static void Install()
 		{
 			auto& trampoline = REL::GetTrampoline();
+
+			REL::Relocation<uintptr_t> target{ REL::ID{ 1055666, 2228083 }, REL::Offset{ 0x5D, 0x20C } };
+			target.write({ 0x01 });
+
 			_GenerateSaveFileName = trampoline.write_call<5>(REL::Relocation<uintptr_t>{ REL::ID{ 1055666, 2228083 }, REL::Offset{ 0x32, 0x1ED } }.address(), & GenerateSaveFileName);
 		}
 	};
